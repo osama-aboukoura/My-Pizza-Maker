@@ -1,0 +1,24 @@
+.SauceLeft {
+    height: 90%;
+    width: 45%;
+    position: absolute;
+    left: 5%;
+    top: 5%;
+    border-bottom-left-radius: 300px;
+    border-top-left-radius: 300px;
+}
+.SauceRight {
+    height: 90%;
+    width: 45%;
+    position: absolute;
+    left: 50%;
+    top: 5%;
+    border-bottom-right-radius: 300px;
+    border-top-right-radius: 300px;
+}
+.TomatoSauce {
+    background-color: #C90000;
+}
+.BbqSauce {
+    background-color: #810F00;
+}

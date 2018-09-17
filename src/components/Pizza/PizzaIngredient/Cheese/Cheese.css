@@ -1,0 +1,35 @@
+.cheeseLeft {
+    width: 44%;
+    height: 86%;
+    background: linear-gradient(to bottom, #f7d576 0%,#f9cb42 100%);
+    /* border-radius: 50%; */
+    position: absolute;
+    left: 7%;
+    top: 7%;
+    border-bottom-left-radius: 200px;
+    border-top-left-radius: 200px;
+}
+.cheeseRight {
+    width: 44%;
+    height: 86%;
+    background: linear-gradient(to bottom, #f7d576 0%,#f9cb42 100%);
+    /* border-radius: 50%; */
+    position: absolute;
+    left: 49%;
+    top: 7%;
+    border-bottom-right-radius: 200px;
+    border-top-right-radius: 200px;
+}
+.cheeseHole {
+    background: linear-gradient(to bottom, #FEAB37 0%,#F9CB42 80%);
+    border-radius: 100%;
+    position: absolute;
+}  
+.cheeseHole1 { width: 50%; height: 25%; left: 45%; top: 10%; }
+.cheeseHole2 { width: 40%; height: 20%; left: 10%; top: 40%; }
+.cheeseHole3 { width: 40%; height: 20%; left: 55%; top: 60%; }
+
+.cheeseHole4 { width: 30%; height: 15%; left: 30%; top: 10%; }
+.cheeseHole5 { width: 40%; height: 20%; left: 5%; top: 30%; }
+.cheeseHole6 { width: 26%; height: 13%; left: 0%; top: 80%; }
+.cheeseHole7 { width: 50%; height: 25%; left: 30%; top: 50%; }

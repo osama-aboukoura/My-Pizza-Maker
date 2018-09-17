@@ -1,0 +1,44 @@
+.PizzaSection {
+    width: 20%;
+    float:left;
+    border: 1px dashed gray;
+    border-radius: 15px;
+    margin: 1%;
+}
+.scrollableDiv{
+    overflow-y: auto;
+    height: 110px;
+}
+
+.PizzaSection :hover {
+    cursor: pointer;
+}
+
+.sideTitle {
+    text-align: center; 
+    text-transform:capitalize;
+    margin-bottom: 0;
+}
+
+.active {
+    background-color: aquamarine;
+}
+
+.inactive {
+    background-color: lightgray;
+    opacity: 0.3;
+}
+
+@media (max-width: 800px) {
+    .PizzaSection {
+        width: 30% !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .PizzaSection {
+        width: 80% !important;
+        float: none;
+        margin: 10px auto;
+    }
+}

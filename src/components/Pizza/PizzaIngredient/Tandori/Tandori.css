@@ -1,0 +1,15 @@
+.tandori {
+    position: absolute;
+    width: 15%; 
+    height: 4%; 
+    border: solid 10px #C42F19;
+    border-radius: 45%;
+    border-color: transparent #C42F19 #C42F19 transparent;
+    z-index: 40;
+}
+.tandori1 { left: 30%; top: 15%; transform: rotate(90deg); }
+.tandori2 { left: 10%; top: 45%; transform: rotate(45deg); }
+.tandori3 { left: 30%; top: 77%; transform: rotate(150deg); }
+.tandori4 { left: 60%; bottom: 15%; transform: rotate(180deg); }
+.tandori5 { left: 50%; top: 15%; transform: rotate(300deg); }
+.tandori6 { left: 65%; top: 45%; }

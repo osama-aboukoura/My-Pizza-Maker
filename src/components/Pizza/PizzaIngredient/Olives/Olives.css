@@ -1,0 +1,18 @@
+.olives {
+    position: absolute;
+    width: 3%; 
+    height: 3%; 
+    border: 6px solid black;
+    border-radius: 50%;
+    z-index: 70;
+}
+.olives1 { left: 14%; top: 28%; }
+.olives2 { left: 35%; top: 15%; }
+.olives3 { left: 38%; top: 58%; }
+.olives4 { left: 15%; top: 60%; }
+.olives5 { left: 40%; top: 40%; }
+.olives6 { left: 80%; top: 62%; }
+.olives7 { left: 70%; top: 40%; }
+.olives8 { left: 58%; top: 56%; }
+.olives9 { left: 74%; top: 20%; }
+.olives10 { left: 55%; top: 85%; }

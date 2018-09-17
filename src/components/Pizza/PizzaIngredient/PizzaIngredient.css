@@ -1,0 +1,9 @@
+.Dough {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(#F08E4A, #e27b36);
+    border-radius: 50%;
+    box-shadow: inset -15px 0 #c15711;
+    margin: 0 auto;
+    position: relative;
+}

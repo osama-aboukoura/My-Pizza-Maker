@@ -1,0 +1,36 @@
+.BuildControl {
+    /* display: flex;
+    justify-content: center; */
+    align-items: center;
+    margin: 5px 0;
+    float:left;
+}
+
+.BuildControl button {
+    display: block;
+    font: inherit;
+    padding: 5px;
+    margin: 0 5px;
+    width: 100px;
+    height: 60px;
+    border: 1px solid #AA6817;
+    border-radius: 10px;
+    cursor: pointer;
+    outline: none;
+}
+
+.BuildControl .More {
+    background-color: #8F5E1E;
+    color: white;
+}
+
+.BuildControl .More:hover {
+    background-color: #99703F;
+    color: white;
+}
+
+.SelectedButton {
+    background-color: aquamarine !important;
+    color: black !important;
+    font-weight: bold !important;
+}

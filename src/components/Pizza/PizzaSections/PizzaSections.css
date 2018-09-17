@@ -1,0 +1,16 @@
+.PizzaSections {
+    width: 100%;
+    display:flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+@media (max-width: 500px) {
+    .PizzaSections{
+        width: 80%;
+        margin: 0 auto;
+        display:block;
+        justify-content: center;
+
+    }
+}

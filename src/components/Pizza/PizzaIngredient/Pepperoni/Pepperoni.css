@@ -1,0 +1,12 @@
+.pepperoni {
+    width: 15%;
+    height: 15%;
+    position: absolute;
+    background: linear-gradient(to right bottom, rgb(250,0,0) , rgb(70,0,0));
+    border-radius: 50%;
+    z-index: 10;
+}
+.pepperoni1 { left: 19%; top: 17%; }
+.pepperoni2 { left: 19%; top: 67%; }
+.pepperoni3 { left: 66%; top: 17%; }
+.pepperoni4 { left: 66%; top: 67%; }

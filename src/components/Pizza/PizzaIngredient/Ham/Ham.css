@@ -1,0 +1,14 @@
+.ham {
+    width: 12%;
+    height: 12%;
+    position: absolute;
+    background: linear-gradient(to left bottom, #DB868F , #FBD3D2);
+    box-shadow: 5px 5px 20px #FBD3D2 inset;
+    border-radius: 35%;
+    transform: rotate(45deg);
+    z-index: 30;
+}
+.ham1 { left: 32%; top: 34%; }
+.ham2 { left: 33%; top: 58%; }
+.ham3 { left: 55%; top: 34%; }
+.ham4 { left: 55%; top: 58%; }

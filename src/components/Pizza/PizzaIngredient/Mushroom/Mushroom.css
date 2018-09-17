@@ -1,0 +1,27 @@
+.mushroom{
+    position:absolute;
+    width:12%;
+    height:6%;
+    background: linear-gradient(#E8DFCB, #C48B63); 
+    border-radius:100% 100% 0 0/170% 170% 0 0;
+    z-index: 60;
+}
+.mushroom:after{
+    position:absolute;
+    content:'';
+    width:60%;
+    height:100%;
+    background: linear-gradient(#E8DFCB, #C48B63); 
+    left:20%;
+    margin-left:0px;
+    border-radius:100% 100% 50% 50%/200% 200% 30% 30%;
+    top:70%;
+    z-index: 60;
+} 
+
+.mushroom1 { left: 9%; top: 53%; transform: rotate(30deg); }
+.mushroom2 { left: 42%; top: 22%; transform: rotate(100deg); }
+.mushroom3 { left: 36%; top: 82%; transform: rotate(100deg); }
+.mushroom4 { left: 80%; top: 38%; transform: rotate(30deg); }
+.mushroom5 { left: 53%; top: 49%; transform: rotate(100deg); }
+.mushroom6 { left: 74%; top: 67%; transform: rotate(30deg); }
