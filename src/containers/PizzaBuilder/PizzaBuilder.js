@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from '../../axios-orders';
 
 import Aux from '../../hoc/Aux/Aux';
 import Pizza from '../../components/Pizza/Pizza';
@@ -6,6 +7,7 @@ import PizzaSections from '../../components/Pizza/PizzaSections/PizzaSections'
 import BuildControls from '../../components/Pizza/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Pizza/OrderSummary/OrderSummary';
+import Spinner from '../../components/UI/Spinner/Spinner'
 
 const INGREDIENT_PRICES = {
     tomatoSauce: 1.0,
@@ -24,7 +26,7 @@ const INGREDIENT_PRICES = {
 class PizzaBuilder extends Component {
 
     state = {
-        ingredients: { 
+        ingredients: {
             full: {
                 tomatoSauce: 1,
                 bbqSauce: 0,
@@ -67,7 +69,8 @@ class PizzaBuilder extends Component {
         totalPrice: 10.0,
         purchasable: true,
         purchasing: false,
-        activeSide: "full"
+        activeSide: "full",
+        loading: false
     }
 
     countToppings(ingredients, side) {
@@ -93,15 +96,15 @@ class PizzaBuilder extends Component {
         const oldCount = this.state.ingredients[side][type];
         let newCount;
         if (oldCount === 0) {
-            newCount = 1; 
+            newCount = 1;
         } else {
-            newCount = 0; 
+            newCount = 0;
         }
         const updatedIngredients = {
             ...this.state.ingredients
         };
         updatedIngredients[side][type] = newCount;
-        if (type === "bbqSauce"){
+        if (type === "bbqSauce") {
             updatedIngredients[side]["tomatoSauce"] = 0;
             updatedIngredients["full"]["tomatoSauce"] = 0;
             if (side === "full") {
@@ -109,7 +112,7 @@ class PizzaBuilder extends Component {
                 updatedIngredients["right"]["tomatoSauce"] = 0;
             }
         }
-        if (type === "tomatoSauce"){
+        if (type === "tomatoSauce") {
             updatedIngredients[side]["bbqSauce"] = 0;
             updatedIngredients["full"]["bbqSauce"] = 0;
             if (side === "full") {
@@ -125,16 +128,16 @@ class PizzaBuilder extends Component {
             updatedIngredients["full"][type] = 1;
         }
         if (newCount === 0 && side !== "full") {
-            updatedIngredients["full"][type] = newCount; 
+            updatedIngredients["full"][type] = newCount;
         }
         this.setState({ ingredients: updatedIngredients })
         this.updatePrice(type, side, newCount);
-        
+
         this.updatePurchaseState(updatedIngredients);
     }
 
     updatePrice = (type, side, count) => {
-        if (type === "tomatoSauce" || type === "bbqSauce"){
+        if (type === "tomatoSauce" || type === "bbqSauce") {
             return;
         }
         let priceDifference = INGREDIENT_PRICES[type];
@@ -157,7 +160,46 @@ class PizzaBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        alert('You continue!');
+        this.setState({ loading: true });
+        const ingredientsCopy = { ...this.state.ingredients };
+
+        const ingredientsFull = Object.keys(ingredientsCopy["full"])
+            .map(ingredientName => ingredientsCopy["full"][ingredientName] > 0 ? ingredientName : null)
+            .filter(x => x != null);
+
+        const ingredientsLeft = Object.keys(ingredientsCopy["left"])
+            .map(ingredientName => ingredientsCopy["left"][ingredientName] > 0 && ingredientsCopy["full"][ingredientName] === 0 ? ingredientName : null)
+            .filter(x => x != null);
+
+        const ingredientsRight = Object.keys(ingredientsCopy["right"])
+            .map(ingredientName => ingredientsCopy["right"][ingredientName] > 0 && ingredientsCopy["full"][ingredientName] === 0 ? ingredientName : null)
+            .filter(x => x != null);
+
+        const order = {
+            ingredients: {
+                full: ingredientsFull,
+                left: ingredientsLeft,
+                right: ingredientsRight,
+            },
+            price: this.state.totalPrice, // in a real product, this should be calculated on the server's side
+            customer: {
+                name: 'Osama',
+                address: {
+                    streetName: '123 street',
+                    postCode: 'UB67RD',
+                    city: 'London'
+                },
+                email: 'osama@g.com',
+                deliveryMethod: 'cheapest'
+            }
+        }
+        axios.post('/orders.json', order)
+            .then(response => {
+                this.setState({ loading: true, purchasing: false })
+            })
+            .catch(error => {
+                this.setState({ loading: true, purchasing: false })
+            })
     }
 
     changeActiveSideHandler = (side) => {
@@ -171,15 +213,18 @@ class PizzaBuilder extends Component {
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
-        // {salad: true, meat: false, ...}
+        let orderSummery = <OrderSummary
+            ingredients={this.state.ingredients}
+            price={this.state.totalPrice}
+            purchaseCancelled={this.purchaseCancelHandler}
+            purchaseContinued={this.purchaseContinueHandler} />
+        if (this.state.loading) {
+            orderSummery = <Spinner />
+        }
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    <OrderSummary
-                        ingredients={this.state.ingredients}
-                        price={this.state.totalPrice}
-                        purchaseCancelled={this.purchaseCancelHandler}
-                        purchaseContinued={this.purchaseContinueHandler} />
+                    {orderSummery}
                 </Modal>
                 <Pizza ingredients={this.state.ingredients} />
                 <PizzaSections
@@ -192,7 +237,7 @@ class PizzaBuilder extends Component {
                     activeSide={this.state.activeSide}
                     purchasable={this.state.purchasable}
                     ordered={this.purchaseHandler}
-                    price={this.state.totalPrice} 
+                    price={this.state.totalPrice}
                     ingredientsSelected={this.state.ingredients[this.state.activeSide]}
                 />
             </Aux>
