@@ -28,42 +28,16 @@ class PizzaBuilder extends Component {
     state = {
         ingredients: {
             full: {
-                tomatoSauce: 1,
-                bbqSauce: 0,
-                cheese: 1,
-                pepperoni: 0,
-                ham: 0,
-                sausage: 0,
-                tandori: 0,
-                onions: 0,
-                greenPeppers: 0,
-                olives: 0,
-                mushroom: 0,
+                tomatoSauce: 1, bbqSauce: 0, cheese: 1, pepperoni: 0, ham: 0, sausage: 0,
+                tandori: 0, onions: 0, greenPeppers: 0, olives: 0, mushroom: 0
             },
             left: {
-                tomatoSauce: 1,
-                bbqSauce: 0,
-                cheese: 1,
-                pepperoni: 0,
-                ham: 0,
-                sausage: 0,
-                tandori: 0,
-                onions: 0,
-                greenPeppers: 0,
-                olives: 0,
-                mushroom: 0,
+                tomatoSauce: 1, bbqSauce: 0, cheese: 1, pepperoni: 0, ham: 0, sausage: 0,
+                tandori: 0, onions: 0, greenPeppers: 0, olives: 0, mushroom: 0,
             },
             right: {
-                tomatoSauce: 1,
-                bbqSauce: 0,
-                cheese: 1,
-                pepperoni: 0,
-                ham: 0,
-                sausage: 0,
-                tandori: 0,
-                onions: 0,
-                greenPeppers: 0,
-                mushroom: 0,
+                tomatoSauce: 1, bbqSauce: 0, cheese: 1, pepperoni: 0, ham: 0, sausage: 0,
+                tandori: 0, onions: 0, greenPeppers: 0, mushroom: 0,
             }
         },
         totalPrice: 10.0,
@@ -160,46 +134,72 @@ class PizzaBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        this.setState({ loading: true });
-        const ingredientsCopy = { ...this.state.ingredients };
+        // this.setState({ loading: true });
+        // const ingredientsCopy = { ...this.state.ingredients };
 
-        const ingredientsFull = Object.keys(ingredientsCopy["full"])
-            .map(ingredientName => ingredientsCopy["full"][ingredientName] > 0 ? ingredientName : null)
-            .filter(x => x != null);
+        // const ingredientsFull = Object.keys(ingredientsCopy["full"])
+        //     .map(ingredientName => ingredientsCopy["full"][ingredientName] > 0 ? ingredientName : null)
+        //     .filter(x => x != null);
 
-        const ingredientsLeft = Object.keys(ingredientsCopy["left"])
-            .map(ingredientName => ingredientsCopy["left"][ingredientName] > 0 && ingredientsCopy["full"][ingredientName] === 0 ? ingredientName : null)
-            .filter(x => x != null);
+        // const ingredientsLeft = Object.keys(ingredientsCopy["left"])
+        //     .map(ingredientName => ingredientsCopy["left"][ingredientName] > 0 && ingredientsCopy["full"][ingredientName] === 0 ? ingredientName : null)
+        //     .filter(x => x != null);
 
-        const ingredientsRight = Object.keys(ingredientsCopy["right"])
-            .map(ingredientName => ingredientsCopy["right"][ingredientName] > 0 && ingredientsCopy["full"][ingredientName] === 0 ? ingredientName : null)
-            .filter(x => x != null);
+        // const ingredientsRight = Object.keys(ingredientsCopy["right"])
+        //     .map(ingredientName => ingredientsCopy["right"][ingredientName] > 0 && ingredientsCopy["full"][ingredientName] === 0 ? ingredientName : null)
+        //     .filter(x => x != null);
 
-        const order = {
-            ingredients: {
-                full: ingredientsFull,
-                left: ingredientsLeft,
-                right: ingredientsRight,
-            },
-            price: this.state.totalPrice, // in a real product, this should be calculated on the server's side
-            customer: {
-                name: 'Osama',
-                address: {
-                    streetName: '123 street',
-                    postCode: 'UB67RD',
-                    city: 'London'
-                },
-                email: 'osama@g.com',
-                deliveryMethod: 'cheapest'
+        // const order = {
+        //     ingredients: {
+        //         full: ingredientsFull,
+        //         left: ingredientsLeft,
+        //         right: ingredientsRight,
+        //     },
+        //     price: this.state.totalPrice, // in a real product, this should be calculated on the server's side
+        //     customer: {
+        //         name: 'Osama',
+        //         address: {
+        //             streetName: '123 street',
+        //             postCode: 'UB67RD',
+        //             city: 'London'
+        //         },
+        //         email: 'osama@g.com',
+        //         deliveryMethod: 'cheapest'
+        //     }
+        // }
+        // axios.post('/orders.json', order)
+        //     .then(response => {
+        //         this.setState({ loading: true, purchasing: false })
+        //     })
+        //     .catch(error => {
+        //         this.setState({ loading: true, purchasing: false })
+        //     })
+
+        const queryParamsFull = []; 
+        for (let i in this.state.ingredients.full){
+            if (encodeURIComponent(this.state.ingredients['full'][i]) > 0) {
+                queryParamsFull.push('&full.'+encodeURIComponent(i) + "=" + encodeURIComponent(this.state.ingredients['full'][i]));
             }
         }
-        axios.post('/orders.json', order)
-            .then(response => {
-                this.setState({ loading: true, purchasing: false })
-            })
-            .catch(error => {
-                this.setState({ loading: true, purchasing: false })
-            })
+        const queryParamsLeft = []; 
+        for (let i in this.state.ingredients.left){
+            if (encodeURIComponent(this.state.ingredients['left'][i]) > 0) {
+                queryParamsLeft.push('&left.'+encodeURIComponent(i) + "=" + encodeURIComponent(this.state.ingredients['left'][i]));
+            }
+        }
+        const queryParamsRight = []; 
+        for (let i in this.state.ingredients.right){
+            if (encodeURIComponent(this.state.ingredients['right'][i]) > 0) {
+                queryParamsRight.push('&right.'+encodeURIComponent(i) + "=" + encodeURIComponent(this.state.ingredients['right'][i]));
+            }
+        }
+        let queryString = queryParamsFull.join('');
+        queryString += queryParamsLeft.join('');
+        queryString += queryParamsRight.join('');
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        });
     }
 
     changeActiveSideHandler = (side) => {
