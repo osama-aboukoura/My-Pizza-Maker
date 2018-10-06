@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from '../../axios-orders';
 
 import Aux from '../../hoc/Aux/Aux';
 import Pizza from '../../components/Pizza/Pizza';
@@ -134,47 +133,6 @@ class PizzaBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        // this.setState({ loading: true });
-        // const ingredientsCopy = { ...this.state.ingredients };
-
-        // const ingredientsFull = Object.keys(ingredientsCopy["full"])
-        //     .map(ingredientName => ingredientsCopy["full"][ingredientName] > 0 ? ingredientName : null)
-        //     .filter(x => x != null);
-
-        // const ingredientsLeft = Object.keys(ingredientsCopy["left"])
-        //     .map(ingredientName => ingredientsCopy["left"][ingredientName] > 0 && ingredientsCopy["full"][ingredientName] === 0 ? ingredientName : null)
-        //     .filter(x => x != null);
-
-        // const ingredientsRight = Object.keys(ingredientsCopy["right"])
-        //     .map(ingredientName => ingredientsCopy["right"][ingredientName] > 0 && ingredientsCopy["full"][ingredientName] === 0 ? ingredientName : null)
-        //     .filter(x => x != null);
-
-        // const order = {
-        //     ingredients: {
-        //         full: ingredientsFull,
-        //         left: ingredientsLeft,
-        //         right: ingredientsRight,
-        //     },
-        //     price: this.state.totalPrice, // in a real product, this should be calculated on the server's side
-        //     customer: {
-        //         name: 'Osama',
-        //         address: {
-        //             streetName: '123 street',
-        //             postCode: 'UB67RD',
-        //             city: 'London'
-        //         },
-        //         email: 'osama@g.com',
-        //         deliveryMethod: 'cheapest'
-        //     }
-        // }
-        // axios.post('/orders.json', order)
-        //     .then(response => {
-        //         this.setState({ loading: true, purchasing: false })
-        //     })
-        //     .catch(error => {
-        //         this.setState({ loading: true, purchasing: false })
-        //     })
-
         const queryParamsFull = []; 
         for (let i in this.state.ingredients.full){
             if (encodeURIComponent(this.state.ingredients['full'][i]) > 0) {
@@ -196,6 +154,7 @@ class PizzaBuilder extends Component {
         let queryString = queryParamsFull.join('');
         queryString += queryParamsLeft.join('');
         queryString += queryParamsRight.join('');
+        queryString += ("&price=" + this.state.totalPrice)
         this.props.history.push({
             pathname: '/checkout',
             search: '?' + queryString
